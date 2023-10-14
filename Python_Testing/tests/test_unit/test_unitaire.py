@@ -65,3 +65,13 @@ class TestsUnitPurchase:
                                                         'places': '1'})
         assert response.status_code == 200
         assert 'book for a past competition' in response.data.decode()
+    
+    # Test d'achat avec un solde insuffisant
+    def test_not_enough_points(self, client):
+        response = client.post('/purchasePlaces', data={'club': 'Iron Temple',
+                                                        'competition': 'Spring Festival',
+                                                        'places': '7'
+                                                        }
+                               )
+        assert response.status_code == 200
+        assert 'have enough points' in response.data.decode()
