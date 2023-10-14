@@ -75,3 +75,17 @@ class TestsUnitPurchase:
                                )
         assert response.status_code == 200
         assert 'have enough points' in response.data.decode()
+    
+    def test_purchase_with_sufficient_points(self, client):
+        club_name = 'Simply Lift'
+        competition_name = 'Spring Festival'
+        places = 1
+
+        response = client.post('/purchasePlaces', data={'club': club_name,
+                                                        'competition': competition_name,
+                                                        'places': str(places)
+                                                        }
+                               )
+
+        assert response.status_code == 200
+        assert 'Great-booking complete!' in response.data.decode()
