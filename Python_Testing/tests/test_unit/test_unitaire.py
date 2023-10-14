@@ -58,3 +58,10 @@ class TestsUnitPurchase:
                                )
         assert response.status_code == 200
         assert 'book more than 12 points' in response.data.decode()
+
+    # Test d'achat de place d'une compétition passée
+    def test_purchase_past_competition(self, client):
+        response = client.post('/purchasePlaces', data={'club': 'Simply Lift', 'competition': 'Fall Classic',
+                                                        'places': '1'})
+        assert response.status_code == 200
+        assert 'book for a past competition' in response.data.decode()
