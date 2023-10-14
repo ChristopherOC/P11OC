@@ -73,7 +73,9 @@ def purchasePlaces():
     if placesRequired > 12:  # Restriction du nombre
         flash('You can\'t book more than 12 points')
         book_authorized = False
-    
+    if date < datetime.now():  # Restriction du temps
+        flash('You can\'t book for a past competition')
+        book_authorized = False
     if book_authorized:  # Réservation des places réussie
         competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
         club['points'] = int(club['points']) - placesRequired
