@@ -76,6 +76,12 @@ def purchasePlaces():
     if date < datetime.now():  # Restriction du temps
         flash('You can\'t book for a past competition')
         book_authorized = False
+    if int(club['points']) < placesRequired:  # Restriction au niveau du solde
+        flash('You don\'t have enough points')
+        book_authorized = False
+    if placesRequired > int(competition['numberOfPlaces']):  # Restriction du nombre de places dispo
+        flash('Not enough places for this competition')
+        book_authorized = False
     if book_authorized:  # Réservation des places réussie
         competition['numberOfPlaces'] = int(competition['numberOfPlaces']) - placesRequired
         club['points'] = int(club['points']) - placesRequired
